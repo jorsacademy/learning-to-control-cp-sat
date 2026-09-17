@@ -1,9 +1,9 @@
 from __future__ import annotations
 
-from dataclasses import asdict
 import json
-from pathlib import Path
 import platform
+from dataclasses import asdict
+from pathlib import Path
 from typing import Any
 
 import numpy as np
@@ -165,7 +165,9 @@ def run_experiment(config: dict[str, Any]) -> dict[str, Any]:
     for strategy in ("default", "fixed", "degree", "learned_root"):
         rows = [row for row in cpsat_records if row["strategy"] == strategy]
         cpsat_summary[strategy] = {
-            "solved_rate": sum(row["status"] in {"OPTIMAL", "FEASIBLE", "INFEASIBLE"} for row in rows)
+            "solved_rate": sum(
+                row["status"] in {"OPTIMAL", "FEASIBLE", "INFEASIBLE"} for row in rows
+            )
             / len(rows),
             "branches": summarize(row["branches"] for row in rows),
             "conflicts": summarize(row["conflicts"] for row in rows),
