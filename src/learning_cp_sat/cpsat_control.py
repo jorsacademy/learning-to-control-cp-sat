@@ -66,7 +66,14 @@ def solve_with_cpsat(
     solver.parameters.cp_model_presolve = False
     solver.parameters.symmetry_level = 0
 
-    if strategy != "default":
+    if strategy == "min_domain":
+        cp.add_decision_strategy(
+            variables,
+            cp_model.CHOOSE_MIN_DOMAIN_SIZE,
+            cp_model.SELECT_MIN_VALUE,
+        )
+        solver.parameters.search_branching = cp_model.FIXED_SEARCH
+    elif strategy != "default":
         order = _root_order(instance, strategy, model)
         cp.add_decision_strategy(
             [variables[v] for v in order],

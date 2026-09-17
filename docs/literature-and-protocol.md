@@ -16,7 +16,7 @@ Graph coloring makes domain propagation, first-fail behavior, degree structure, 
 
 The public OR-Tools Python CP-SAT model surface exposes `add_decision_strategy` with finite enumerations of variable-selection and domain-reduction strategies. Solver parameters expose `FIXED_SEARCH` and other global search modes. The public solution callback is for observing solutions, not arbitrary per-node branching decisions.
 
-Consequently, the CP-SAT experiment is root/static control only. A future version could use a solver that exposes a true search callback, or a lower-level solver integration, but it should not pretend the current Python API provides one.
+Consequently, the learned CP-SAT experiment is root/static control only. Classical public fixed-search baselines may still use built-in dynamic selectors such as `CHOOSE_MIN_DOMAIN_SIZE`. A future version could use a solver that exposes a true search callback, or a lower-level solver integration, but it should not pretend the current Python API provides one.
 
 ## Exactness boundary
 

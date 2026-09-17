@@ -148,7 +148,7 @@ def run_experiment(config: dict[str, Any]) -> dict[str, Any]:
     cp_cfg = config["cp_sat"]
     for i, instance in enumerate(test):
         instance_id = f"test-{i}"
-        for strategy in ("default", "fixed", "degree", "learned_root"):
+        for strategy in ("default", "fixed", "degree", "min_domain", "learned_root"):
             result = solve_with_cpsat(
                 instance,
                 strategy=strategy,
@@ -162,7 +162,7 @@ def run_experiment(config: dict[str, Any]) -> dict[str, Any]:
             cpsat_records.append(row)
 
     cpsat_summary: dict[str, Any] = {}
-    for strategy in ("default", "fixed", "degree", "learned_root"):
+    for strategy in ("default", "fixed", "degree", "min_domain", "learned_root"):
         rows = [row for row in cpsat_records if row["strategy"] == strategy]
         cpsat_summary[strategy] = {
             "solved_rate": sum(

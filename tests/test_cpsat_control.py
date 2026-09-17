@@ -18,8 +18,10 @@ def test_cpsat_default_and_fixed_search_agree_on_feasibility() -> None:
     )
     default = solve_with_cpsat(instance, strategy="default", seed=1, time_limit_seconds=5)
     fixed = solve_with_cpsat(instance, strategy="degree", seed=1, time_limit_seconds=5)
+    min_domain = solve_with_cpsat(instance, strategy="min_domain", seed=1, time_limit_seconds=5)
     assert default.status == "INFEASIBLE"
     assert fixed.status == "INFEASIBLE"
+    assert min_domain.status == "INFEASIBLE"
 
 
 def test_cpsat_learned_root_uses_public_fixed_strategy() -> None:
