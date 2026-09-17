@@ -30,9 +30,7 @@ def test_cpsat_learned_root_uses_public_fixed_strategy() -> None:
         seed=31,
         infeasible=False,
     )
-    samples = collect_expert_samples(
-        train, max_states=10, node_limit=100, state_prefix="cp"
-    )
+    samples = collect_expert_samples(train, max_states=10, node_limit=100, state_prefix="cp")
     model = fit_ridge(samples)
     result = solve_with_cpsat(
         train,

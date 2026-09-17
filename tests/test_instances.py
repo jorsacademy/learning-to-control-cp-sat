@@ -2,12 +2,8 @@ from learning_cp_sat.instances import generate_instance, generate_split
 
 
 def test_generation_is_deterministic_and_certificates_match() -> None:
-    a = generate_instance(
-        n_vertices=8, n_colors=3, edge_probability=0.5, seed=17, infeasible=False
-    )
-    b = generate_instance(
-        n_vertices=8, n_colors=3, edge_probability=0.5, seed=17, infeasible=False
-    )
+    a = generate_instance(n_vertices=8, n_colors=3, edge_probability=0.5, seed=17, infeasible=False)
+    b = generate_instance(n_vertices=8, n_colors=3, edge_probability=0.5, seed=17, infeasible=False)
     assert a == b
     assert a.expected_feasible
 

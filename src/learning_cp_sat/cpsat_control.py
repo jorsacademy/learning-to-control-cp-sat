@@ -54,8 +54,7 @@ def solve_with_cpsat(
 
     cp = cp_model.CpModel()
     variables = [
-        cp.new_int_var(0, instance.n_colors - 1, f"color_{v}")
-        for v in range(instance.n_vertices)
+        cp.new_int_var(0, instance.n_colors - 1, f"color_{v}") for v in range(instance.n_vertices)
     ]
     for u, v in instance.edges:
         cp.add(variables[u] != variables[v])

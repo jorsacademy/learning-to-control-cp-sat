@@ -40,9 +40,7 @@ def strong_lookahead_scores(
         values = colors_in(mask)
         for color in values:
             probes += 1
-            propagated, removed, _ = assign_and_propagate(
-                instance, domains, variable, color
-            )
+            propagated, removed, _ = assign_and_propagate(instance, domains, variable, color)
             if propagated is None:
                 failures += 1
             else:

@@ -46,6 +46,7 @@ def _select_variable(
     if policy == "mrv":
         return min(candidates, key=lambda v: (domain_size(domains[v]), -degrees[v], v)), 0, 0
     if policy == "dom_degree":
+
         def key(v: int) -> tuple[float, int, int, int]:
             remaining = sum(domain_size(domains[u]) > 1 for u in instance.adjacency[v])
             return (
@@ -64,9 +65,7 @@ def _select_variable(
     if policy == "learned":
         if model is None:
             raise ValueError("learned policy requires a fitted model")
-        matrix = np.vstack(
-            [candidate_features(instance, domains, v, depth) for v in candidates]
-        )
+        matrix = np.vstack([candidate_features(instance, domains, v, depth) for v in candidates])
         scores = model.predict(matrix)
         best_index = max(
             range(len(candidates)),
@@ -118,17 +117,13 @@ def solve_coloring(
         if over_limit():
             return False
 
-        variable, evals, probes = _select_variable(
-            policy, instance, domains, depth, rng, model
-        )
+        variable, evals, probes = _select_variable(policy, instance, domains, depth, rng, model)
         policy_evaluations += evals
         expert_probes += probes
         nodes += 1
 
         for color in colors_in(domains[variable]):
-            child, _, propagated = assign_and_propagate(
-                instance, domains, variable, color
-            )
+            child, _, propagated = assign_and_propagate(instance, domains, variable, color)
             propagations += propagated
             if child is None:
                 backtracks += 1
